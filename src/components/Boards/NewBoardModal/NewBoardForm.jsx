@@ -23,8 +23,9 @@ const NewBoardForm = ({ onSave, isLoading }) => {
             ref={register({
               required: 'Required',
               pattern: {
-                value: /^\w{10,30}$/i,
-                message: 'Invalid board name (at least 10 characters).',
+                value: /^.{10,30}$/i,
+                message:
+                  'Invalid board name (at least 10 characters, max 30 characters).',
               },
             })}
           />
@@ -49,7 +50,7 @@ const NewBoardForm = ({ onSave, isLoading }) => {
             ref={register({
               required: 'Required',
               pattern: {
-                value: /^\w{10,100}$/i,
+                value: /^.{10,100}$/i,
                 message: 'invalid description (at least 10 characters)',
               },
             })}
