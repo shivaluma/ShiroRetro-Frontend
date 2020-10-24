@@ -23,8 +23,8 @@ const NewBoardForm = ({ onSave, isLoading }) => {
             ref={register({
               required: 'Required',
               pattern: {
-                value: /^[a-zA-Z\\s ]+$/i,
-                message: 'Invalid board name.',
+                value: /^\w{10,30}$/i,
+                message: 'Invalid board name (at least 10 characters).',
               },
             })}
           />
@@ -49,8 +49,8 @@ const NewBoardForm = ({ onSave, isLoading }) => {
             ref={register({
               required: 'Required',
               pattern: {
-                value: /^[A-Za-z\\s ]+$/i,
-                message: 'invalid description',
+                value: /^\w{10,100}$/i,
+                message: 'invalid description (at least 10 characters)',
               },
             })}
           />
@@ -63,7 +63,7 @@ const NewBoardForm = ({ onSave, isLoading }) => {
         )}
 
         <button
-          className="mt-6 text-xs font-medium text-white bg-yellow-500 border rounded-lg"
+          className="mt-6 text-xs font-medium text-white bg-yellow-500 border rounded-lg focus:outline-none"
           type="submit"
           disabled={isLoading}
         >

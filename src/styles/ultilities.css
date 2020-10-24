@@ -79,3 +79,6 @@ html {
     right: 24px
 }
 
+button::focus {
+ outline: none;
+}
