@@ -1,14 +1,10 @@
 import React from 'react';
 import Header from './components/Header';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, leftHeader, rightHeader }) => {
   return (
     <main className="relative w-full">
-      <Header
-        leftChild={() => (
-          <div className="ml-2 text-xl font-medium text-gray-800">Boards</div>
-        )}
-      />
+      <Header leftChild={leftHeader} rightChild={rightHeader} />
       {children}
     </main>
   );

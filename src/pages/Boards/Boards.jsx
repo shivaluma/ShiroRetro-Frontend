@@ -2,7 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react';
 import AddButton from '../../components/Boards/AddButton';
 import BoardButton from '../../components/Boards/BoardButton';
 import NewBoardModal from '../../components/Boards/NewBoardModal';
+
 import Loading from '../../components/Loading';
+import useLayout from '../../hooks/useLayout';
 import { BoardService } from '../../services';
 
 const Boards = () => {
@@ -57,33 +59,43 @@ const Boards = () => {
     }
   }, []);
 
+  const Layout = useLayout([
+    () => (
+      <div key="leftHeader" className="ml-2 text-xl font-medium text-gray-800">
+        Boards
+      </div>
+    ),
+  ]);
+
   return isInitLoading ? (
     <Loading />
   ) : (
-    <div className="container flex flex-col mx-auto mt-10">
-      <span className="w-full pb-3 text-3xl border-b border-gray-400">
-        My Boards
-      </span>
+    <Layout>
+      <div className="container flex flex-col mx-auto mt-10">
+        <span className="w-full pb-3 text-3xl border-b border-gray-400">
+          My Boards
+        </span>
 
-      <div className="flex flex-wrap w-full mt-8">
-        <AddButton handleClick={handleToggleModal} />
-        {boards?.length > 0 &&
-          boards.map((board) => (
-            <BoardButton
-              key={board._id}
-              name={board.name}
-              id={board._id}
-              handleDeleteClick={handleDeleteClick}
-            />
-          ))}
+        <div className="flex flex-wrap w-full mt-8">
+          <AddButton handleClick={handleToggleModal} />
+          {boards?.length > 0 &&
+            boards.map((board) => (
+              <BoardButton
+                key={board._id}
+                name={board.name}
+                id={board._id}
+                handleDeleteClick={handleDeleteClick}
+              />
+            ))}
+        </div>
+        <NewBoardModal
+          visible={isModalShowing}
+          onSave={handleAddNewBoard}
+          handleCancel={handleToggleModal}
+          isLoading={isLoadingAddNewBoard}
+        />
       </div>
-      <NewBoardModal
-        visible={isModalShowing}
-        onSave={handleAddNewBoard}
-        handleCancel={handleToggleModal}
-        isLoading={isLoadingAddNewBoard}
-      />
-    </div>
+    </Layout>
   );
 };
 

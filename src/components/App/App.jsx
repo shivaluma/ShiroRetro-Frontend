@@ -1,13 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Boards from '../../pages/Boards/Boards';
 import '../../styles/main.css';
-import Layout from '../Layout/Layout';
+
+import { Login } from '../../pages/Login';
 
 const App = () => {
   return (
-    <Layout>
-      <Boards />
-    </Layout>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Boards} />
+        <Route exact path="/login" component={Login} />
+      </Switch>
+    </Router>
   );
 };
 
