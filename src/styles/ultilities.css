@@ -1,0 +1,81 @@
+html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+}
+
+.tile-structure {
+    border-radius: 30px;
+    box-sizing: border-box;
+    height: 220px;
+    min-width: 152px;
+    padding: 16px 0;
+    width: 152px;
+    align-items: center;
+    background: rgba(246,248,249,0);
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    transition-duration: .4s;
+}
+
+.box-button {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    box-sizing: border-box;
+    color: #9ca6af;
+    display: flex;
+    fill: #9ca6af;
+    justify-content: center;
+    position: relative;
+}
+
+.box-button.add {
+    border: 2px dashed;
+    box-sizing: border-box;
+}
+
+
+
+.tile-structure-name {
+    box-sizing: border-box;
+    margin-top: 8px;
+    padding: 0 8px;
+    -webkit-box-orient: vertical;
+    color: #151b26;
+    display: -webkit-box;
+    font-size: 13px;
+    font-weight: 500;
+    -webkit-line-clamp: 2;
+    line-height: 16px;
+    max-height: 32px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+
+
+
+.ant-popover-inner {
+    border-radius: 10px !important;
+}
+
+.ant-popover-inner-content {
+    padding: 0 !important;
+}
+
+.ant-modal-header {
+    border-radius: 10px !important;
+}
+
+.ant-modal-content {
+    border-radius: 10px !important;
+}
+
+.menu-hover {
+    
+    top: 26px;
+    right: 24px
+}
