@@ -4,17 +4,15 @@ import NewBoardForm from './NewBoardModal/NewBoardForm';
 
 const NewBoardModal = ({ visible, onSave, handleCancel, isLoading }) => {
   return (
-    <div>
-      <Modal
-        title="Add new Board."
-        visible={visible}
-        okText="Save"
-        footer={null}
-        onCancel={handleCancel}
-      >
-        <NewBoardForm onSave={onSave} isLoading={isLoading} />
-      </Modal>
-    </div>
+    <Modal
+      title="Add new Board."
+      visible={visible}
+      okText="Save"
+      footer={null}
+      onCancel={handleCancel}
+    >
+      <NewBoardForm onSave={onSave} isLoading={isLoading} />
+    </Modal>
   );
 };
 

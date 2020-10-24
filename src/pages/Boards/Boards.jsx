@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import AddButton from '../../components/Boards/AddButton';
 import BoardButton from '../../components/Boards/BoardButton';
 import NewBoardModal from '../../components/Boards/NewBoardModal';
@@ -21,7 +21,6 @@ const Boards = () => {
     async function fetchData() {
       try {
         const { data } = await BoardService.getBoards();
-
         setBoards(() => data?.data || []);
         setInitLoading(false);
       } catch (err) {
@@ -35,7 +34,6 @@ const Boards = () => {
     setLoadingAddNewBoard(true);
     try {
       const data = await BoardService.addBoard(name, description);
-
       setRefresh((currentRefresh) => !currentRefresh);
     } catch (err) {
       console.log(err);
@@ -59,13 +57,21 @@ const Boards = () => {
     }
   }, []);
 
-  const Layout = useLayout([
-    () => (
-      <div key="leftHeader" className="ml-2 text-xl font-medium text-gray-800">
-        Boards
-      </div>
-    ),
-  ]);
+  const Layout = useMemo(
+    () =>
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useLayout([
+        () => (
+          <div
+            key="leftHeader"
+            className="ml-2 text-xl font-medium text-gray-800"
+          >
+            Boards
+          </div>
+        ),
+      ]),
+    []
+  );
 
   return isInitLoading ? (
     <Loading />
@@ -88,13 +94,13 @@ const Boards = () => {
               />
             ))}
         </div>
-        <NewBoardModal
-          visible={isModalShowing}
-          onSave={handleAddNewBoard}
-          handleCancel={handleToggleModal}
-          isLoading={isLoadingAddNewBoard}
-        />
       </div>
+      <NewBoardModal
+        visible={isModalShowing}
+        onSave={handleAddNewBoard}
+        handleCancel={handleToggleModal}
+        isLoading={isLoadingAddNewBoard}
+      />
     </Layout>
   );
 };
