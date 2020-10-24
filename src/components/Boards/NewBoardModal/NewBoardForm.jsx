@@ -4,9 +4,9 @@ import clsx from 'clsx';
 import { Spin } from 'antd';
 
 const NewBoardForm = ({ onSave, isLoading }) => {
-  const { handleSubmit, register, errors } = useForm();
+  const { handleSubmit, register, errors, reset } = useForm();
   const onSubmit = (values) => {
-    onSave(values.name, values.description);
+    onSave(values.name, values.description, reset);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,6 +65,7 @@ const NewBoardForm = ({ onSave, isLoading }) => {
         <button
           className="mt-6 text-xs font-medium text-white bg-yellow-500 border rounded-lg"
           type="submit"
+          disabled={isLoading}
         >
           <div className="flex items-center justify-center h-10">
             {' '}

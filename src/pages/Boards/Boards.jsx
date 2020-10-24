@@ -30,11 +30,12 @@ const Boards = () => {
     fetchData();
   }, [refresh]);
 
-  const handleAddNewBoard = async (name, description) => {
+  const handleAddNewBoard = async (name, description, reset) => {
     setLoadingAddNewBoard(true);
     try {
       const data = await BoardService.addBoard(name, description);
       setRefresh((currentRefresh) => !currentRefresh);
+      reset();
     } catch (err) {
       console.log(err);
     }
@@ -50,7 +51,6 @@ const Boards = () => {
   const handleDeleteClick = useCallback(async (idBoard) => {
     try {
       const data = await BoardService.deleteBoard(idBoard);
-
       onDeleleSuccess(idBoard);
     } catch (err) {
       console.log(err);
