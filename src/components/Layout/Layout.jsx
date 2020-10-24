@@ -3,7 +3,7 @@ import Header from './components/Header';
 
 const Layout = ({ children }) => {
   return (
-    <main className="w-full">
+    <main className="relative w-full">
       <Header
         leftChild={() => (
           <div className="ml-2 text-xl font-medium text-gray-800">Boards</div>

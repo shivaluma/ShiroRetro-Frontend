@@ -2,10 +2,12 @@ import React, { useState, useCallback, useEffect } from 'react';
 import AddButton from '../../components/Boards/AddButton';
 import BoardButton from '../../components/Boards/BoardButton';
 import NewBoardModal from '../../components/Boards/NewBoardModal';
+import Loading from '../../components/Loading';
 import { BoardService } from '../../services';
 
 const Boards = () => {
   const [isModalShowing, setModalShowing] = useState(false);
+  const [isInitLoading, setInitLoading] = useState(true);
   const [isLoadingAddNewBoard, setLoadingAddNewBoard] = useState(false);
   const [boards, setBoards] = useState(null);
   const [refresh, setRefresh] = useState(false);
@@ -17,8 +19,9 @@ const Boards = () => {
     async function fetchData() {
       try {
         const { data } = await BoardService.getBoards();
-        console.log(data?.data);
+
         setBoards(() => data?.data || []);
+        setInitLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -30,7 +33,7 @@ const Boards = () => {
     setLoadingAddNewBoard(true);
     try {
       const data = await BoardService.addBoard(name, description);
-      console.log(data);
+
       setRefresh((currentRefresh) => !currentRefresh);
     } catch (err) {
       console.log(err);
@@ -47,14 +50,16 @@ const Boards = () => {
   const handleDeleteClick = useCallback(async (idBoard) => {
     try {
       const data = await BoardService.deleteBoard(idBoard);
-      console.log(data);
+
       onDeleleSuccess(idBoard);
     } catch (err) {
       console.log(err);
     }
   }, []);
 
-  return (
+  return isInitLoading ? (
+    <Loading />
+  ) : (
     <div className="container flex flex-col mx-auto mt-10">
       <span className="w-full pb-3 text-3xl border-b border-gray-400">
         My Boards
