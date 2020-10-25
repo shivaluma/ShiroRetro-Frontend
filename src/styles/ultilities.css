@@ -58,6 +58,7 @@ html {
 
 
 
+
 .ant-popover-inner {
     border-radius: 10px !important;
 }
@@ -81,4 +82,28 @@ html {
 
 button::focus {
  outline: none;
+}
+
+.login-container {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px 0 rgba(21,27,38,.08);
+    box-sizing: border-box;
+    margin-top: 80px;
+    max-width: 440px;
+    
+    padding: 64px 48px 32px;
+}
+
+.login-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px 0 rgba(21,27,38,.08);
+    box-sizing: border-box;
+    margin-top: 80px;
+    max-width: 500px;
+    padding: 64px 48px 32px;
 }

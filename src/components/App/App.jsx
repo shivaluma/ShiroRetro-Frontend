@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Boards from '../../pages/Boards/Boards';
-import '../../styles/main.css';
+import '../../styles/tailwind.css';
 
 import { Login } from '../../pages/Login';
 

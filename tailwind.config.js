@@ -4,9 +4,15 @@ module.exports = {
     purgeLayersByDefault: true,
   },
   purge: {
-    enabled: true,
-    mode: 'all',
-    content: ['./src/**/*.jsx', './src/**/*.jsx'],
+    enabled: false,
+    content: [
+      './src/**/*.jsx',
+      './src/**/*.jsx',
+      // './node_modules/antd/es/button/**/*.css',
+      // './node_modules/antd/es/modal/**/*.css',
+      // './node_modules/antd/es/avatar/**/*.css',
+      // './node_modules/antd/es/popover/**/*.css',
+    ],
   },
 
   target: 'relaxed',
@@ -30,7 +36,10 @@ module.exports = {
       gray: {
         100: '#f7fafc',
         200: '#edf2f7',
+        230: '#cbd4db',
         250: '#f0f0f0',
+
+        280: '#6f7782',
         300: '#e2e8f0',
         400: '#6e6d7a',
         500: '#a0aec0',
@@ -50,17 +59,11 @@ module.exports = {
         800: '#9b2c2c',
         900: '#742a2a',
       },
-      orange: {
-        100: '#fffaf0',
-        200: '#feebc8',
-        300: '#fbd38d',
-        400: '#f6ad55',
-        500: '#ed8936',
-        600: '#dd6b20',
-        700: '#c05621',
-        800: '#9c4221',
-        900: '#7b341e',
+      background: {
+        1: '#f6f8f9',
+        button: '#796eff',
       },
+
       yellow: {
         100: '#fffff0',
         200: '#fefcbf',
@@ -83,16 +86,9 @@ module.exports = {
         800: '#276749',
         900: '#22543d',
       },
-      teal: {
-        100: '#e6fffa',
-        200: '#b2f5ea',
-        300: '#81e6d9',
-        400: '#4fd1c5',
-        500: '#38b2ac',
-        600: '#319795',
-        700: '#2c7a7b',
-        800: '#285e61',
-        900: '#234e52',
+
+      text: {
+        1: '#151b26',
       },
       blue: {
         100: '#ebf8ff',
@@ -105,17 +101,7 @@ module.exports = {
         800: '#2c5282',
         900: '#2a4365',
       },
-      indigo: {
-        100: '#ebf4ff',
-        200: '#c3dafe',
-        300: '#a3bffa',
-        400: '#7f9cf5',
-        500: '#667eea',
-        600: '#5a67d8',
-        700: '#4c51bf',
-        800: '#434190',
-        900: '#3c366b',
-      },
+
       purple: {
         100: '#faf5ff',
         200: '#e9d8fd',
@@ -159,6 +145,10 @@ module.exports = {
       48: '12rem',
       56: '14rem',
       64: '16rem',
+      80: '20rem',
+      88: '24rem',
+      92: '26rem',
+      96: '28rem',
     },
     backgroundColor: (theme) => theme('colors'),
     backgroundImage: {

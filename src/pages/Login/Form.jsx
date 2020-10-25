@@ -3,21 +3,23 @@ import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { Spin } from 'antd';
 
-const NewBoardForm = ({ onSave, isLoading }) => {
+const LoginForm = ({ onLogin, isLoading }) => {
   const { handleSubmit, register, errors, reset } = useForm();
   const onSubmit = (values) => {
-    onSave(values.name, values.description, reset);
+    onLogin(values.name, values.password, reset);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
-        <label htmlFor="name">
-          <span className="px-0 mb-1 text-left tile-structure-name">Name</span>
+        <label htmlFor="email">
+          <span className="px-0 mb-1 text-left tile-structure-name ">
+            Email
+          </span>
           <input
-            name="name"
-            id="name"
+            name="email"
+            id="email"
             className={clsx(
-              'w-full p-2 border border-gray-300 rounded-md focus:outline-none',
+              'w-full p-2 border border-gray-230 rounded-md focus:outline-none',
               errors.name && 'border-red-500'
             )}
             ref={register({
@@ -25,57 +27,61 @@ const NewBoardForm = ({ onSave, isLoading }) => {
               pattern: {
                 value: /^.{10,40}$/i,
                 message:
-                  'Invalid board name (at least 10 characters, max 40 characters).',
+                  'Invalid email (at least 10 characters, max 40 characters).',
               },
             })}
           />
         </label>
-        {errors.name && (
+        {errors.email && (
           <span className="mt-1 text-xs font-medium text-red-600">
-            {errors.name.message}
+            {errors.email.message}
           </span>
         )}
 
-        <label className="mt-6" htmlFor="description">
+        <label className="mt-6" htmlFor="password">
           <span className="px-0 mb-1 text-left tile-structure-name">
-            Description
+            Password
           </span>
-          <textarea
-            name="description"
-            id="description"
+          <input
+            name="password"
+            id="password"
             className={clsx(
-              'w-full p-2 border border-gray-300 rounded-md focus:outline-none',
-              errors.description && 'border-red-500'
+              'w-full p-2 border border-gray-230 rounded-md focus:outline-none',
+              errors.password && 'border-red-500'
             )}
             ref={register({
               required: 'Required',
               pattern: {
                 value: /^.{10,100}$/i,
-                message: 'invalid description (at least 10 characters)',
+                message: 'invalid password (at least 10 characters)',
               },
             })}
           />
         </label>
 
-        {errors.description && (
+        {errors.password && (
           <span className="mt-1 text-xs font-medium text-red-600">
-            {errors.description.message}
+            {errors.password.message}
           </span>
         )}
 
         <button
-          className="mt-6 text-xs font-medium text-white bg-yellow-500 border rounded-lg focus:outline-none"
+          className="mt-6 text-xs font-medium text-white border rounded-lg focus:outline-none bg-background-button"
           type="submit"
           disabled={isLoading}
         >
           <div className="flex items-center justify-center h-10">
             {' '}
-            {isLoading ? <Spin className="mt-1" /> : 'Save'}
+            {isLoading ? <Spin className="mt-1" /> : 'Log In'}
           </div>
         </button>
+
+        <span className="mt-6 text-xs text-center text-gray-400">
+          Don&apos;t have an account? Sign Up
+        </span>
       </div>
     </form>
   );
 };
 
-export default NewBoardForm;
+export default LoginForm;
