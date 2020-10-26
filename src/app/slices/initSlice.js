@@ -3,8 +3,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const loadingSlice = createSlice({
-  name: 'loading',
-  initialState: false,
+  name: 'init',
+  initialState: true,
   reducers: {
     toggle(state, action) {
       return !state;
@@ -18,7 +18,7 @@ export default loadingSlice.reducer;
 
 // Actions
 
-export const changeLoading = () => async (dispatch) => {
+export const changeInit = () => async (dispatch) => {
   try {
     dispatch(toggle());
   } catch (e) {

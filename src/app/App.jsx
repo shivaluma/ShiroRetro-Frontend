@@ -5,21 +5,21 @@ import Boards from '../pages/Boards/Boards';
 import '../styles/tailwind.css';
 import ProtectedRoute from '../components/ProtectedRoute';
 import { initUserLoading } from './slices/userSlice';
-import { changeLoading } from './slices/loadingSlice';
+import { changeInit } from './slices/initSlice';
 import Loading from '../components/Loading';
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector((state) => state.loading);
+  const isInit = useSelector((state) => state.init);
   useEffect(() => {
     (async function init() {
       await dispatch(initUserLoading());
-      await dispatch(changeLoading());
+      await dispatch(changeInit());
     })();
   }, [dispatch]);
 
-  return isLoading ? (
+  return isInit ? (
     <Loading />
   ) : (
     <Router>
