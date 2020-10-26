@@ -11,7 +11,6 @@ const userSlice = createSlice({
       return action.payload;
     },
     removeUser(state) {
-      localStorage.removeItem('whatisthis');
       return null;
     },
   },
@@ -64,6 +63,21 @@ export const signup = ({ email, password, confirmPassword }) => async (
   }
 };
 
+export const initUserLoading = () => async (dispatch) => {
+  try {
+    const res = await API.get('user/me');
+
+    if (!res.data.isError) {
+      dispatch(setUser(res.data.data));
+    }
+
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
 export const signout = () => async (dispatch) => {
+  localStorage.removeItem('whatisthis');
   dispatch(removeUser());
 };

@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Boards from '../pages/Boards/Boards';
 import '../styles/tailwind.css';
-
-// import { Auth } from '../pages/Auth';
 import ProtectedRoute from '../components/ProtectedRoute';
+import { initUserLoading } from './slices/userSlice';
+import { changeLoading } from './slices/loadingSlice';
+import Loading from '../components/Loading';
 
 const App = () => {
-  return (
+  const dispatch = useDispatch();
+
+  const isLoading = useSelector((state) => state.loading);
+  useEffect(() => {
+    (async function init() {
+      await dispatch(initUserLoading());
+      await dispatch(changeLoading());
+    })();
+  }, [dispatch]);
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Router>
       <Switch>
         <ProtectedRoute exact path="/" component={Boards} />

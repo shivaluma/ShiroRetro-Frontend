@@ -6,7 +6,7 @@ import { Auth } from '../pages/Auth';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.user);
-
+  console.log(user);
   return (
     <Route
       {...rest}
