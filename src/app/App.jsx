@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Boards from '../../pages/Boards/Boards';
-import '../../styles/tailwind.css';
+import Boards from '../pages/Boards/Boards';
+import '../styles/tailwind.css';
 
-import { Login } from '../../pages/Login';
+import { Login } from '../pages/Login';
 
 const App = () => {
   return (

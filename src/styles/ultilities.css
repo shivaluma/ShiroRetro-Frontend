@@ -94,7 +94,7 @@ button::focus {
     box-shadow: 0 5px 20px 0 rgba(21,27,38,.08);
     box-sizing: border-box;
     margin-top: 80px;
-    max-width: 440px;
+    
     
     padding: 64px 48px 32px;
 }
@@ -104,6 +104,13 @@ button::focus {
     box-shadow: 0 5px 20px 0 rgba(21,27,38,.08);
     box-sizing: border-box;
     margin-top: 80px;
-    max-width: 500px;
+   
+    width: 30rem;
+    max-width: 100vw;
     padding: 64px 48px 32px;
+}
+
+
+.login-button {
+    background: linear-gradient(to top right, rgba(255, 82, 99, 0.9) 10%, rgba(255, 115, 129, 0.9) 65%)
 }
