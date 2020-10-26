@@ -6,20 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../../app/slices/userSlice';
 import { changeLoading } from '../../app/slices/loadingSlice';
 
-const LoginForm = () => {
+const LoginForm = ({ changeMode }) => {
   const { handleSubmit, register, errors, setError } = useForm();
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.loading);
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  // function sleep(ms) {
+  //   return new Promise((resolve) => setTimeout(resolve, ms));
+  // }
 
   const onSubmit = async (values) => {
     dispatch(changeLoading());
-    const response = await sleep(400).then(() => dispatch(signin(values)));
-    if (response && response.data.isError)
+    const response = await dispatch(signin(values));
+
+    if (response && response?.data?.isError)
       setError('password', {
         type: 'manual',
         message: response.data.message,
@@ -48,6 +49,7 @@ const LoginForm = () => {
                 message: 'invalid email address.',
               },
             })}
+            autoComplete="on"
           />
         </label>
         {errors.email && (
@@ -56,7 +58,7 @@ const LoginForm = () => {
           </span>
         )}
 
-        <label className="mt-6" htmlFor="password">
+        <label className="mt-4" htmlFor="password">
           <span className="px-0 mb-1 text-left tile-structure-name">
             Password
           </span>
@@ -71,11 +73,12 @@ const LoginForm = () => {
             ref={register({
               required: 'Required',
               pattern: {
-                value: /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/i,
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
                 message:
-                  'Password must contain at least one letter, at least one number, and be longer than six charaters.',
+                  'Password must contain at least one lowercase letter, one uppercase letter, one number, one special character and be longer than seven characters.',
               },
             })}
+            autoComplete="on"
           />
         </label>
 
@@ -86,7 +89,7 @@ const LoginForm = () => {
         )}
 
         <button
-          className="mt-6 text-xs font-medium text-white border rounded-lg focus:outline-none login-button"
+          className="mt-8 text-xs font-medium text-white border rounded-lg focus:outline-none bg-background-button"
           type="submit"
           disabled={isLoading}
         >
@@ -94,7 +97,14 @@ const LoginForm = () => {
         </button>
 
         <span className="mt-6 text-xs text-center text-gray-400">
-          Don&apos;t have an account? Sign Up
+          Don&apos;t have an account?
+          <button
+            type="button"
+            className="ml-2 text-background-button focus:outline-none"
+            onClick={changeMode}
+          >
+            Sign Up
+          </button>
         </span>
       </div>
     </form>

@@ -1,19 +1,29 @@
 import { Spin } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaGoogle, FaFacebookF } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Logo from '../../components/Logo';
-import LoginForm from './Form';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
+import { signinFacebook } from '../../app/slices/userSlice';
 
-const Login = () => {
+const Login = ({ isLogin = true }) => {
   const isLoading = useSelector((state) => state.loading);
-
+  const [isLoginMode, setLoginMode] = useState(() => isLogin);
+  const dispatch = useDispatch();
   const facebookLoginHandler = async (response) => {
     try {
-      console.log(response);
+      dispatch(
+        signinFacebook({
+          id: response.id,
+          fbAccessToken: response.accessToken,
+        })
+      );
     } catch (err) {}
   };
+
+  const handleChangeMode = () => setLoginMode((prev) => !prev);
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-background-1">
@@ -67,7 +77,11 @@ const Login = () => {
                 <div className="flex-1 border-t border-gray-300" />
               </div>
 
-              <LoginForm />
+              {isLoginMode ? (
+                <LoginForm changeMode={handleChangeMode} />
+              ) : (
+                <RegisterForm changeMode={handleChangeMode} />
+              )}
             </div>
           </div>
         </Spin>

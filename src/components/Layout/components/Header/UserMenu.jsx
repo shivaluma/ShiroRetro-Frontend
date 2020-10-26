@@ -1,14 +1,24 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { signout } from '../../../../app/slices/userSlice';
 
 const UserMenu = () => {
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-col w-48 overflow-hidden">
-      <span className="px-5 py-3 text-gray-400 border-b border-gray-200 hover:bg-gray-200">
+      <button
+        type="button"
+        className="px-5 py-3 text-left text-gray-400 border-b border-gray-200 outline-none focus:outline-none hover:bg-gray-200"
+      >
         Edit Profile
-      </span>
-      <span className="px-5 py-3 text-gray-400 hover:bg-gray-200">
+      </button>
+      <button
+        type="button"
+        className="px-5 py-3 text-left text-gray-400 outline-none focus:outline-none hover:bg-gray-200"
+        onClick={() => dispatch(signout())}
+      >
         Sign Out
-      </span>
+      </button>
     </div>
   );
 };

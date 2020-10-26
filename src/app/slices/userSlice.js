@@ -8,11 +8,11 @@ const userSlice = createSlice({
   initialState: null,
   reducers: {
     setUser(state, action) {
-      const { email, _id, displayName } = action.payload;
-      state = { email, _id, displayName };
+      return action.payload;
     },
     removeUser(state) {
-      state = null;
+      localStorage.removeItem('whatisthis');
+      return null;
     },
   },
 });
@@ -29,10 +29,41 @@ export const signin = ({ email, password }) => async (dispatch) => {
       email,
       password,
     });
+
     localStorage.setItem('whatisthis', res.data.data.accessToken);
     dispatch(setUser(res.data.data.user));
   } catch (e) {
     return e.response;
   }
 };
-export const signout = () => async (dispatch) => {};
+
+export const signinFacebook = ({ id, fbAccessToken }) => async (dispatch) => {
+  try {
+    const res = await API.post('auth/signin-facebook', { id, fbAccessToken });
+    console.log(res);
+    localStorage.setItem('whatisthis', res.data.data.accessToken);
+    dispatch(setUser(res.data.data.user));
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const signup = ({ email, password, confirmPassword }) => async (
+  dispatch
+) => {
+  try {
+    const res = await API.post('auth/signup', {
+      email,
+      password,
+      confirmPassword,
+    });
+
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const signout = () => async (dispatch) => {
+  dispatch(removeUser());
+};
