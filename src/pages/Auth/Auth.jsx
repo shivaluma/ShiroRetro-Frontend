@@ -42,7 +42,7 @@ const Login = ({ isLogin = true }) => {
               </span>
               <div className="flex flex-col w-full max-w-full gap-0 md:gap-5 md:flex-row">
                 <FacebookLogin
-                  appId="297734224952735"
+                  appId="763599140852000"
                   callback={facebookLoginHandler}
                   render={() => (
                     <button
