@@ -56,7 +56,8 @@ const Login = ({ isLogin = true }) => {
                 />
 
                 <FacebookLogin
-                  appId="297734224952735"
+                  appId="763599140852000"
+                  autoLoad
                   callback={facebookLoginHandler}
                   render={(props) => (
                     <button
