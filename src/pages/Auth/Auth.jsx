@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { FaGoogle, FaFacebookF } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { GoogleLogin } from 'react-google-login';
 import Logo from '../../components/Logo';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import { signinFacebook } from '../../app/slices/userSlice';
+import { signinFacebook, signinGoogle } from '../../app/slices/userSlice';
 
 const Login = ({ isLogin = true }) => {
   const isLoading = useSelector((state) => state.loading);
@@ -18,6 +19,17 @@ const Login = ({ isLogin = true }) => {
         signinFacebook({
           id: response.id,
           fbAccessToken: response.accessToken,
+        })
+      );
+    } catch (err) {}
+  };
+
+  const googleLoginHandler = async (response) => {
+    console.log(response);
+    try {
+      dispatch(
+        signinGoogle({
+          ggAccessToken: response.accessToken,
         })
       );
     } catch (err) {}
@@ -41,23 +53,26 @@ const Login = ({ isLogin = true }) => {
                 Login by Socials
               </span>
               <div className="flex flex-col w-full max-w-full gap-0 md:gap-5 md:flex-row">
-                <FacebookLogin
-                  appId="763599140852000"
-                  callback={facebookLoginHandler}
-                  render={() => (
+                <GoogleLogin
+                  clientId="796130238984-hu68ntsbb3vo0udf8tsdpj8la7reej1g.apps.googleusercontent.com"
+                  render={(renderProps) => (
                     <button
                       type="button"
                       className="flex items-center flex-grow w-12 px-12 py-4 text-red-700 transition-all duration-300 border rounded-lg border-gray-230 hover:bg-red-700 hover:text-white focus:outline-none"
+                      onClick={renderProps.onClick}
                     >
                       <FaGoogle />
                       <span className="ml-2">Google</span>
                     </button>
                   )}
+                  buttonText="Login"
+                  onSuccess={googleLoginHandler}
+                  onFailure={googleLoginHandler}
+                  cookiePolicy="single_host_origin"
                 />
 
                 <FacebookLogin
                   appId="763599140852000"
-                  autoLoad
                   callback={facebookLoginHandler}
                   render={(props) => (
                     <button

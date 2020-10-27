@@ -39,9 +39,22 @@ export const signin = ({ email, password }) => async (dispatch) => {
 export const signinFacebook = ({ id, fbAccessToken }) => async (dispatch) => {
   try {
     const res = await API.post('auth/signin-facebook', { id, fbAccessToken });
-    console.log(res);
-    localStorage.setItem('whatisthis', res.data.data.accessToken);
-    dispatch(setUser(res.data.data.user));
+    if (res?.data?.data) {
+      localStorage.setItem('whatisthis', res.data.data.accessToken);
+      dispatch(setUser(res.data.data.user));
+    }
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const signinGoogle = ({ ggAccessToken }) => async (dispatch) => {
+  try {
+    const res = await API.post('auth/signin-google', { ggAccessToken });
+    if (res?.data?.data) {
+      localStorage.setItem('whatisthis', res.data.data.accessToken);
+      dispatch(setUser(res.data.data.user));
+    }
   } catch (e) {
     return e.response;
   }
