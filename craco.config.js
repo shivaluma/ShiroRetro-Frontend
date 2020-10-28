@@ -11,7 +11,7 @@ module.exports = {
       plugins: [
         tailwindcss('./tailwind.config.js'),
         autoprefixer({
-          browsers: [
+          overrideBrowserslist: [
             'last 2 versions',
             'safari 5',
             'ie 11',

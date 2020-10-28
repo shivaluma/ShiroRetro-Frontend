@@ -2,22 +2,22 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signin } from '../../app/slices/userSlice';
-import { changeLoading } from '../../app/slices/loadingSlice';
+
+import { useLoading } from '../../hooks';
 
 const LoginForm = ({ changeMode }) => {
   const { handleSubmit, register, errors, setError } = useForm();
-
+  const [isLoading, changeLoading] = useLoading();
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.loading);
 
   // function sleep(ms) {
   //   return new Promise((resolve) => setTimeout(resolve, ms));
   // }
 
   const onSubmit = async (values) => {
-    dispatch(changeLoading());
+    changeLoading();
     const response = await dispatch(signin(values));
 
     if (response && response?.data?.isError)
@@ -25,7 +25,7 @@ const LoginForm = ({ changeMode }) => {
         type: 'manual',
         message: response.data.message,
       });
-    dispatch(changeLoading());
+    changeLoading();
   };
 
   return (
