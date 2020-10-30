@@ -10,7 +10,16 @@ module.exports = {
       mode: 'extends' /* (default value) */ || 'file',
       plugins: [
         tailwindcss('./tailwind.config.js'),
-        autoprefixer,
+        autoprefixer({
+          overrideBrowserslist: [
+            'last 2 versions',
+            'safari 5',
+            'ie 11',
+            'opera 12.1',
+            'ios 6',
+            'android 4',
+          ],
+        }),
         require('postcss-flexbugs-fixes'),
         postcssPresetEnv({
           stage: 3,
