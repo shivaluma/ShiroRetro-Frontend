@@ -73,9 +73,9 @@ const LoginForm = ({ changeMode }) => {
             ref={register({
               required: 'Required',
               pattern: {
-                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
-                message:
-                  'Password must contain at least one lowercase letter, one uppercase letter, one number, one special character and be longer than seven characters.',
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+		      message:
+                  'Password must contain at least 8 characters, at least one alpha and one number.',
               },
             })}
             autoComplete="on"
