@@ -2,12 +2,17 @@ import { Popover } from 'antd';
 import React from 'react';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { SiTrello } from 'react-icons/si';
+import { useHistory } from 'react-router-dom';
 
-const BoardButton = ({ handleClick, name, id, handleDeleteClick }) => {
+const BoardButton = ({ name, id, shortId, handleDeleteClick }) => {
   const onClick = () => handleDeleteClick(id);
+  const history = useHistory();
+  const onButtonClick = () => {
+    return history.push(`/b/${shortId}`);
+  };
   return (
     <button
-      onClick={handleClick}
+      onClick={onButtonClick}
       type="button"
       className="relative duration-300 transform outline-none tile-structure hover:bg-gray-200 hover:-translate-y-2 focus:outline-none group"
     >

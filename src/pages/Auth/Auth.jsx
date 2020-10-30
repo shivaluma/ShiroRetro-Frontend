@@ -1,18 +1,26 @@
 import { Spin } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FaGoogle, FaFacebookF } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import { GoogleLogin } from 'react-google-login';
+import { useHistory } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { signinFacebook, signinGoogle } from '../../app/slices/userSlice';
 
-const Login = ({ isLogin = true }) => {
+const Login = ({ isLogin = true, location }) => {
   const isLoading = useSelector((state) => state.loading);
   const [isLoginMode, setLoginMode] = useState(() => isLogin);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const onLoginSuccess = useCallback(() => {
+    const params = new URLSearchParams(location.search);
+    const next = params.get('next');
+    history.replace(next);
+  }, [history, location.search]);
+
   const facebookLoginHandler = async (response) => {
     try {
       dispatch(
@@ -21,17 +29,18 @@ const Login = ({ isLogin = true }) => {
           fbAccessToken: response.accessToken,
         })
       );
+      onLoginSuccess();
     } catch (err) {}
   };
 
   const googleLoginHandler = async (response) => {
-    console.log(response);
     try {
       dispatch(
         signinGoogle({
           ggAccessToken: response.accessToken,
         })
       );
+      onLoginSuccess();
     } catch (err) {}
   };
 
@@ -94,7 +103,10 @@ const Login = ({ isLogin = true }) => {
               </div>
 
               {isLoginMode ? (
-                <LoginForm changeMode={handleChangeMode} />
+                <LoginForm
+                  redirect={onLoginSuccess}
+                  changeMode={handleChangeMode}
+                />
               ) : (
                 <RegisterForm changeMode={handleChangeMode} />
               )}

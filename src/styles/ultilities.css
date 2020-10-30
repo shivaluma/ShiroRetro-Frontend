@@ -2,6 +2,8 @@ html {
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
 }
 
+
+
 .tile-structure {
     border-radius: 30px;
     box-sizing: border-box;
@@ -113,4 +115,19 @@ button::focus {
 
 .login-button {
     background: linear-gradient(to top right, rgba(255, 82, 99, 0.9) 10%, rgba(255, 115, 129, 0.9) 65%)
+}
+
+.ant-skeleton-content .ant-skeleton-title {
+    margin-top: 0px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.ant-skeleton-content .ant-skeleton-paragraph > li {
+    border-radius: 5px;
+}
+
+.ant-skeleton-content .ant-skeleton-title+.ant-skeleton-paragraph {
+    margin-top: 14px;
+    border-radius: 999px;
 }

@@ -7,7 +7,7 @@ import { signin } from '../../app/slices/userSlice';
 
 import { useLoading } from '../../hooks';
 
-const LoginForm = ({ changeMode }) => {
+const LoginForm = ({ changeMode, redirect }) => {
   const { handleSubmit, register, errors, setError } = useForm();
   const [isLoading, changeLoading] = useLoading();
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const LoginForm = ({ changeMode }) => {
         message: response.data.message,
       });
     changeLoading();
+    redirect();
   };
 
   return (
@@ -74,7 +75,7 @@ const LoginForm = ({ changeMode }) => {
               required: 'Required',
               pattern: {
                 value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
-		      message:
+                message:
                   'Password must contain at least 8 characters, at least one alpha and one number.',
               },
             })}

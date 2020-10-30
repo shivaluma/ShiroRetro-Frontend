@@ -90,6 +90,7 @@ const Boards = () => {
                 key={board._id}
                 name={board.name}
                 id={board._id}
+                shortId={board.shortId}
                 handleDeleteClick={handleDeleteClick}
               />
             ))}

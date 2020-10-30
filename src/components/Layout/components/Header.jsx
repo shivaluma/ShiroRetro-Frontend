@@ -1,5 +1,6 @@
 import { Avatar, Popover } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../../Logo';
 import UserMenu from './Header/UserMenu';
 
@@ -8,7 +9,9 @@ const Header = ({ leftChild, rightChild }) => {
     <div className="flex items-center justify-between w-full h-20 px-6 border-b border-gray-300">
       <div className="flex items-center">
         <div className="p-3 bg-yellow-600 rounded-xl">
-          <Logo className="w-8 h-8 rounded-sm" />
+          <Link to="/">
+            <Logo className="w-8 h-8 rounded-sm" />
+          </Link>
         </div>
         {leftChild && leftChild()}
       </div>

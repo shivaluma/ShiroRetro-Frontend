@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Result } from 'antd';
 import { signup } from '../../app/slices/userSlice';
 import { useLoading } from '../../hooks';
@@ -124,8 +124,8 @@ const RegisterForm = ({ changeMode }) => {
             ref={register({
               required: 'Required',
               pattern: {
-		      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
-		      message:
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+                message:
                   'Password must contain at least 8 characters, at least one character and one number.',
               },
             })}
