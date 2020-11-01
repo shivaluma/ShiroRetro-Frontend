@@ -20,11 +20,16 @@ const LoginForm = ({ changeMode, redirect }) => {
     changeLoading();
     const response = await dispatch(signin(values));
 
-    if (response && response?.data?.isError)
+    if (response && response?.data?.isError) {
       setError('password', {
         type: 'manual',
         message: response.data.message,
       });
+      changeLoading();
+
+      return;
+    }
+
     changeLoading();
     redirect();
   };
@@ -45,10 +50,6 @@ const LoginForm = ({ changeMode, redirect }) => {
             )}
             ref={register({
               required: 'Required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'invalid email address.',
-              },
             })}
             autoComplete="on"
           />

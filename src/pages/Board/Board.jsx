@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Skeleton } from 'antd';
 import useLayout from '../../hooks/useLayout';
+import List from '../../components/Board/List/List';
 
 const Board = () => {
   const Layout = useMemo(
@@ -30,8 +31,12 @@ const Board = () => {
   );
   return (
     <Layout>
-      <div className="flex flex-col flex-1 min-h-0">
-        <div className="flex-1 px-6 mt-6">asdajsd</div>
+      <div className="flex flex-col flex-1 min-h-0 bg-background-1">
+        <div className="flex flex-1 px-6 mt-6">
+          <List />
+          <List />
+          <List />
+        </div>
       </div>
     </Layout>
   );

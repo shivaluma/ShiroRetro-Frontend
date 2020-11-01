@@ -63,7 +63,10 @@ module.exports = {
         1: '#f6f8f9',
         button: '#796eff',
       },
-
+      text: {
+        header: '#273240',
+        1: '#151b26',
+      },
       yellow: {
         100: '#fffff0',
         200: '#fefcbf',
@@ -87,9 +90,6 @@ module.exports = {
         900: '#22543d',
       },
 
-      text: {
-        1: '#151b26',
-      },
       blue: {
         100: '#ebf8ff',
         200: '#bee3f8',
@@ -300,6 +300,7 @@ module.exports = {
       '4xl': '2.25rem',
       '5xl': '3rem',
       '6xl': '4rem',
+      normal: '16px',
     },
     fontWeight: {
       hairline: '100',
