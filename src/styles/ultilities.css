@@ -161,3 +161,47 @@ button::focus {
     box-shadow: 0 2px 10px 0 rgba(21,27,38,.1);
     
 }
+
+.scrollable-container {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    margin-top: 8px;
+    min-height: 0;
+    position: relative;
+}
+
+.scrollable-area {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    margin: -2px -12px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(100vh - 130px);
+    padding:12px;
+}
+
+.background-empty-list {
+    background: linear-gradient(180deg, rgba(232, 236, 238, 0.7) 0%, rgba(232, 236, 238, 0) 100%)
+}
+
+.card-list {
+    border-radius: 8px;
+    flex: 1 0 100%;
+    position: relative;
+    width: 280px;
+}
+
+.disable-scrollbars {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.board-column {
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 8px;
+    transition: box-shadow 250ms;
+}
