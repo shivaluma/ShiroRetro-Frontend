@@ -40,7 +40,6 @@ const Card = ({
         selection = window.getSelection();
         range = document.createRange();
         range.selectNodeContents(cell);
-
         selection.addRange(range);
       }
     } catch (err) {}
