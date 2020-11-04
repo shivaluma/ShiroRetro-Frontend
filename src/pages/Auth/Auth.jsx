@@ -23,24 +23,28 @@ const Login = ({ isLogin = true, location }) => {
 
   const facebookLoginHandler = async (response) => {
     try {
-      dispatch(
-        signinFacebook({
-          id: response.id,
-          fbAccessToken: response.accessToken,
-        })
-      );
-      onLoginSuccess();
+      if (response.id && response.accessToken) {
+        dispatch(
+          signinFacebook({
+            id: response.id,
+            fbAccessToken: response.accessToken,
+          })
+        );
+        onLoginSuccess();
+      }
     } catch (err) {}
   };
 
   const googleLoginHandler = async (response) => {
     try {
-      dispatch(
-        signinGoogle({
-          ggAccessToken: response.accessToken,
-        })
-      );
-      onLoginSuccess();
+      if (response.accessToken) {
+        dispatch(
+          signinGoogle({
+            ggAccessToken: response.accessToken,
+          })
+        );
+        onLoginSuccess();
+      }
     } catch (err) {}
   };
 

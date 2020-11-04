@@ -8,7 +8,7 @@ const BoardButton = ({ name, id, shortId, handleDeleteClick }) => {
   const onClick = () => handleDeleteClick(id);
   const history = useHistory();
   const onButtonClick = () => {
-    return history.push(`/b/${shortId}`);
+    return history.push(`/b/${id}`);
   };
   return (
     <button

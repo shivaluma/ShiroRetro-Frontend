@@ -6,6 +6,11 @@ class BoardService {
     return data;
   }
 
+  static async getBoard(idBoard) {
+    const data = await API.get(`boards/${idBoard}`);
+    return data;
+  }
+
   static async addBoard(name, description) {
     const data = await API.post('boards', { name, description });
     return data;
