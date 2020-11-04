@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { Spin } from 'antd';
 
-const NewBoardForm = ({ onSave, isLoading, board }) => {
-  const { handleSubmit, register, errors, reset } = useForm();
+const NewBoardForm = ({ onSave, onUpdate, isLoading, board }) => {
+  const { handleSubmit, register, errors, reset, focus } = useForm();
   const onSubmit = (values) => {
     onSave(values.name, values.description, reset);
   };
+
+  const nameRef = useRef(null);
+
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
@@ -20,15 +27,18 @@ const NewBoardForm = ({ onSave, isLoading, board }) => {
               'w-full p-2 border border-gray-300 rounded-md focus:outline-none',
               errors.name && 'border-red-500'
             )}
-            value={board ? board.name : ''}
-            ref={register({
-              required: 'Required',
-              pattern: {
-                value: /^.{10,40}$/i,
-                message:
-                  'Invalid board name (at least 10 characters, max 40 characters).',
-              },
-            })}
+            defaultValue={board ? board.name : ''}
+            ref={(e) => {
+              nameRef.current = e;
+              register(e, {
+                required: 'Required',
+                pattern: {
+                  value: /^.{10,40}$/i,
+                  message:
+                    'Invalid board name (at least 10 characters, max 40 characters).',
+                },
+              });
+            }}
           />
         </label>
         {errors.name && (
@@ -55,9 +65,8 @@ const NewBoardForm = ({ onSave, isLoading, board }) => {
                 message: 'invalid description (at least 10 characters)',
               },
             })}
-          >
-            {board ? board.name : ''}
-          </textarea>
+            defaultValue={board ? board.description : ''}
+          />
         </label>
 
         {errors.description && (

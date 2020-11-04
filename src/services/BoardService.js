@@ -16,6 +16,11 @@ class BoardService {
     return data;
   }
 
+  static async updateBoard(id, name, description) {
+    const data = await API.put(`boards/${id}`, { name, description });
+    return data;
+  }
+
   static async deleteBoard(boardId) {
     const data = await API.delete(`boards/${boardId}`);
     return data;

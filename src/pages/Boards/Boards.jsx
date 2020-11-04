@@ -42,6 +42,23 @@ const Boards = () => {
     setLoadingAddNewBoard(false);
   };
 
+  const handleUpdateBoard = async (board) => {
+    setLoadingAddNewBoard(true);
+    try {
+      const data = await BoardService.updateBoard(
+        board._id,
+        board.name,
+        board.description
+      );
+      setRefresh((currentRefresh) => !currentRefresh);
+      setModalShowing(false);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setLoadingAddNewBoard(false);
+  };
+
   const onDeleleSuccess = (idBoard) => {
     setBoards((prevBoards) =>
       prevBoards.filter((board) => board._id !== idBoard)
@@ -75,7 +92,10 @@ const Boards = () => {
 
   const [currentUpdateBoard, setCurrentUpdateBoard] = useState(null);
 
-  const handleUpdateClick = (board) => {};
+  const handleUpdateClick = (board) => {
+    setCurrentUpdateBoard(() => board);
+    setModalShowing(() => true);
+  };
 
   return isInitLoading ? (
     <Loading />
@@ -95,7 +115,7 @@ const Boards = () => {
                 name={board.name}
                 id={board._id}
                 shortId={board.shortId}
-                handleUpdateClick={handleUpdateClick}
+                handleUpdateClick={() => handleUpdateClick(board)}
                 handleDeleteClick={handleDeleteClick}
               />
             ))}
@@ -104,6 +124,7 @@ const Boards = () => {
       <NewBoardModal
         visible={isModalShowing}
         onSave={handleAddNewBoard}
+        onUpdate={handleUpdateBoard}
         handleCancel={handleToggleModal}
         isLoading={isLoadingAddNewBoard}
         board={currentUpdateBoard}
