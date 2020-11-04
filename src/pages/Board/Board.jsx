@@ -57,7 +57,7 @@ const Board = ({ match }) => {
             </>
           ) : (
             board.lists.map((list) => (
-              <List key={list.id} data={list} idBoard={board._id} />
+              <List key={list._id} data={list} idBoard={board._id} />
             ))
           )}
         </div>

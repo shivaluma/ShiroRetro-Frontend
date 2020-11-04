@@ -34,18 +34,18 @@ const List = ({ data, idBoard }) => {
   };
 
   const handleCardNameChange = (event) => {
+    console.log('Tmp card change');
     setTmpCard({ ...tmpCard, name: event.currentTarget.textContent });
   };
 
   const handleCardOnBlur = async () => {
-    console.log('trigger');
     if (!tmpCard.name) {
       setTmpCard(null);
       return;
     }
     setCardEditMode(false);
     const lastPos = list.cards.length > 0 ? list.cards[0].pos : 0;
-    if (!tmpCard.id) {
+    if (!tmpCard._id) {
       const response = await CardService.addCard(
         tmpCard.name,
         '',
@@ -56,8 +56,26 @@ const List = ({ data, idBoard }) => {
 
       if (!response.isError) {
         setTmpCard(null);
-        setList({ ...list, cards: [...list.cards, response.data] });
+        setList({ ...list, cards: [response.data, ...list.cards] });
       }
+    }
+  };
+
+  const handleCardDelete = async (id) => {
+    console.log(`card delete${id}`);
+    try {
+      await CardService.removeCard(id);
+      const newCards = list.cards.filter((card) => card._id !== id);
+      setList({ ...list, cards: newCards });
+    } catch (err) {}
+  };
+
+  const handleCardUpdate = async (card) => {
+    try {
+      const response = await CardService.updateCard(card);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -92,6 +110,7 @@ const List = ({ data, idBoard }) => {
               <div className={clsx('flex flex-col', 'card-list')}>
                 {tmpCard && (
                   <Card
+                    isNew
                     data={tmpCard}
                     editMode={cardEditMode}
                     onBlur={handleCardOnBlur}
@@ -99,7 +118,13 @@ const List = ({ data, idBoard }) => {
                   />
                 )}
                 {list.cards.map((card) => (
-                  <Card key={card._id} data={card} />
+                  <Card
+                    isNew={false}
+                    key={card._id}
+                    data={card}
+                    handleCardDelete={handleCardDelete}
+                    handleCardUpdate={handleCardUpdate}
+                  />
                 ))}
               </div>
             </div>

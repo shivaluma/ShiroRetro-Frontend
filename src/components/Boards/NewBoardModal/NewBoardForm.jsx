@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { Spin } from 'antd';
 
-const NewBoardForm = ({ onSave, isLoading }) => {
+const NewBoardForm = ({ onSave, isLoading, board }) => {
   const { handleSubmit, register, errors, reset } = useForm();
   const onSubmit = (values) => {
     onSave(values.name, values.description, reset);
@@ -20,6 +20,7 @@ const NewBoardForm = ({ onSave, isLoading }) => {
               'w-full p-2 border border-gray-300 rounded-md focus:outline-none',
               errors.name && 'border-red-500'
             )}
+            value={board ? board.name : ''}
             ref={register({
               required: 'Required',
               pattern: {
@@ -54,7 +55,9 @@ const NewBoardForm = ({ onSave, isLoading }) => {
                 message: 'invalid description (at least 10 characters)',
               },
             })}
-          />
+          >
+            {board ? board.name : ''}
+          </textarea>
         </label>
 
         {errors.description && (

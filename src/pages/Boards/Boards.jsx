@@ -73,6 +73,10 @@ const Boards = () => {
     []
   );
 
+  const [currentUpdateBoard, setCurrentUpdateBoard] = useState(null);
+
+  const handleUpdateClick = (board) => {};
+
   return isInitLoading ? (
     <Loading />
   ) : (
@@ -91,6 +95,7 @@ const Boards = () => {
                 name={board.name}
                 id={board._id}
                 shortId={board.shortId}
+                handleUpdateClick={handleUpdateClick}
                 handleDeleteClick={handleDeleteClick}
               />
             ))}
@@ -101,6 +106,7 @@ const Boards = () => {
         onSave={handleAddNewBoard}
         handleCancel={handleToggleModal}
         isLoading={isLoadingAddNewBoard}
+        board={currentUpdateBoard}
       />
     </Layout>
   );

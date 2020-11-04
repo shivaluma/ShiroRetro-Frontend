@@ -5,7 +5,10 @@ import { SiTrello } from 'react-icons/si';
 import { useHistory } from 'react-router-dom';
 
 const BoardButton = ({ name, id, shortId, handleDeleteClick }) => {
-  const onClick = () => handleDeleteClick(id);
+  const onClick = (event) => {
+    event.stopPropagation();
+    handleDeleteClick(id);
+  };
   const history = useHistory();
   const onButtonClick = () => {
     return history.push(`/b/${id}`);
@@ -25,13 +28,19 @@ const BoardButton = ({ name, id, shortId, handleDeleteClick }) => {
       <Popover
         placement="bottomLeft"
         content={() => (
-          <div className="flex flex-col w-auto py-2">
+          <div className="z-50 flex flex-col w-auto py-2">
             <button
               type="button"
               className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
               onClick={onClick}
             >
               Delete
+            </button>
+            <button
+              type="button"
+              className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
+            >
+              Edit Name & Description
             </button>
             <button
               type="button"
@@ -49,9 +58,13 @@ const BoardButton = ({ name, id, shortId, handleDeleteClick }) => {
         )}
         trigger="click"
       >
-        <div className="absolute hidden text-xl group-hover:block group-hover:opacity-100 menu-hover">
+        <button
+          type="button"
+          className="absolute hidden p-2 text-xl rounded-lg outline-none group-hover:block focus:outline-none group-hover:opacity-100 menu-hover hover:bg-gray-250 hover:bg-opacity-25"
+          onClick={(event) => event.stopPropagation()}
+        >
           <FiMoreHorizontal className="text-white" />
-        </div>
+        </button>
       </Popover>
 
       <span className="tile-structure-name">{name}</span>

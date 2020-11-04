@@ -82,6 +82,11 @@ html {
     right: 24px
 }
 
+.menu-hover-card {
+    top: 16px;
+    right: 14px
+}
+
 button::focus {
  outline: none;
 }
@@ -208,7 +213,6 @@ button::focus {
 
 [contenteditable="true"].single-line {
     white-space: nowrap;
-    
     overflow: hidden;
 } 
 [contenteditable="true"].single-line br {
