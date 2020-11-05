@@ -28,21 +28,21 @@ const Card = ({
   const onEditCard = () => {
     setOldCardEditMode(true);
 
-    try {
-      const cell = ref.current;
-      let range;
-      let selection;
-      if (document.body.createTextRange) {
-        range = document.body.createTextRange();
-        range.moveToElementText(cell);
-        range.select();
-      } else if (window.getSelection) {
-        selection = window.getSelection();
-        range = document.createRange();
-        range.selectNodeContents(cell);
-        selection.addRange(range);
-      }
-    } catch (err) {}
+    // try {
+    //   const cell = ref.current;
+    //   let range;
+    //   let selection;
+    //   if (document.body.createTextRange) {
+    //     range = document.body.createTextRange();
+    //     range.moveToElementText(cell);
+    //     range.select();
+    //   } else if (window.getSelection) {
+    //     selection = window.getSelection();
+    //     range = document.createRange();
+    //     range.selectNodeContents(cell);
+    //     selection.addRange(range);
+    //   }
+    // } catch (err) {}
   };
 
   const onOldCardBlur = () => {

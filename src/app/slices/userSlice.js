@@ -94,3 +94,15 @@ export const signout = () => async (dispatch) => {
   localStorage.removeItem('whatisthis');
   dispatch(removeUser());
 };
+
+export const updateProfile = (displayName) => async (dispatch) => {
+  try {
+    const res = await API.put('/user', {
+      displayName,
+    });
+    dispatch(setUser(res.data.data));
+    return true;
+  } catch (e) {
+    return false;
+  }
+};

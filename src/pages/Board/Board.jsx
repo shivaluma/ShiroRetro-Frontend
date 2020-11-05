@@ -14,7 +14,7 @@ const Board = ({ match }) => {
           resolve(BoardService.getBoard(match.params.idBoard));
         }, 400)
       );
-      console.log(data.data[0]);
+
       setBoard(() => data.data[0]);
       setLoading(false);
     })();

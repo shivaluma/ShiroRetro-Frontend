@@ -10,6 +10,7 @@ const BoardButton = ({
   shortId,
   handleDeleteClick,
   handleUpdateClick,
+  isModalShowing,
 }) => {
   const [showing, setIsShowing] = useState(false);
 
@@ -27,72 +28,66 @@ const BoardButton = ({
     handleUpdateClick();
   };
 
-  const handleOpenPopover = (event) => {
-    setIsShowing(true);
-    event.stopPropagation();
-  };
-
-  const handleClosePopover = (event) => {
-    setIsShowing(false);
-    event.stopPropagation();
-  };
-
   return (
-    <button
-      type="button"
-      onClick={onButtonClick}
-      className="relative flex duration-300 transform outline-none tile-structure hover:bg-gray-200 hover:-translate-y-2 focus:outline-none group"
-    >
-      <div className="w-32 h-32">
-        <div className="text-4xl text-white bg-yellow-500 box-button">
-          <SiTrello />
-        </div>
-      </div>
-
-      <Popover
-        placement="bottomLeft"
-        content={() => (
-          <div className="flex flex-col w-auto py-2">
-            <button
-              type="button"
-              className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
-              onClick={onClick}
-            >
-              Delete
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
-              onClick={onUpdateButtonClick}
-            >
-              Edit Name & Description
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
-            >
-              Copy Board Link
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
-            >
-              Share...
-            </button>
-          </div>
-        )}
-        trigger="click"
+    <div className="relative duration-300 transform group hover:-translate-y-2 ">
+      <button
+        type="button"
+        onClick={onButtonClick}
+        className="flex outline-none tile-structure hover:bg-gray-200 focus:outline-none"
       >
-        <button
-          type="button"
-          className="absolute hidden p-2 text-xl rounded-lg outline-none group-hover:block focus:outline-none group-hover:opacity-100 menu-hover hover:bg-gray-250 hover:bg-opacity-25"
-        >
-          <FiMoreHorizontal className="text-white" />
-        </button>
-      </Popover>
+        <div className="w-32 h-32">
+          <div className="text-4xl text-white bg-yellow-500 box-button">
+            <SiTrello />
+          </div>
+        </div>
 
-      <span className="tile-structure-name">{name}</span>
-    </button>
+        <span className="tile-structure-name">{name}</span>
+      </button>
+
+      {!isModalShowing && (
+        <Popover
+          placement="bottomLeft"
+          content={() => (
+            <div className="flex flex-col w-auto py-2">
+              <button
+                type="button"
+                className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
+                onClick={onClick}
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
+                onClick={onUpdateButtonClick}
+              >
+                Edit Name & Description
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
+              >
+                Copy Board Link
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
+              >
+                Share...
+              </button>
+            </div>
+          )}
+          trigger="click"
+        >
+          <button
+            type="button"
+            className="absolute z-30 hidden p-2 text-xl rounded-lg outline-none group-hover:block focus:outline-none group-hover:opacity-100 menu-hover hover:bg-gray-250 hover:bg-opacity-25"
+          >
+            <FiMoreHorizontal className="text-white" />
+          </button>
+        </Popover>
+      )}
+    </div>
   );
 };
 

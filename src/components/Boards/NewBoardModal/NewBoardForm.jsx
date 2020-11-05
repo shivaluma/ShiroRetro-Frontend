@@ -4,16 +4,23 @@ import clsx from 'clsx';
 import { Spin } from 'antd';
 
 const NewBoardForm = ({ onSave, onUpdate, isLoading, board }) => {
-  const { handleSubmit, register, errors, reset, focus } = useForm();
-  const onSubmit = (values) => {
+  const { handleSubmit, register, errors, reset } = useForm();
+  const onSubmitSave = (values) => {
     onSave(values.name, values.description, reset);
+  };
+
+  const onSubmitUpdate = (values) => {
+    onUpdate(values);
   };
 
   const nameRef = useRef(null);
 
   useEffect(() => {
+    if (!board?._id) reset();
     nameRef.current.focus();
   }, []);
+
+  const onSubmit = board?._id ? onSubmitUpdate : onSubmitSave;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -13,7 +13,10 @@ const Boards = () => {
   const [isLoadingAddNewBoard, setLoadingAddNewBoard] = useState(false);
   const [boards, setBoards] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [currentUpdateBoard, setCurrentUpdateBoard] = useState(null);
+
   const handleToggleModal = useCallback(() => {
+    setCurrentUpdateBoard(() => null);
     setModalShowing((prevShowing) => !prevShowing);
   }, []);
 
@@ -32,6 +35,7 @@ const Boards = () => {
 
   const handleAddNewBoard = async (name, description, reset) => {
     setLoadingAddNewBoard(true);
+
     try {
       const data = await BoardService.addBoard(name, description);
       setRefresh((currentRefresh) => !currentRefresh);
@@ -44,14 +48,17 @@ const Boards = () => {
 
   const handleUpdateBoard = async (board) => {
     setLoadingAddNewBoard(true);
+
     try {
       const data = await BoardService.updateBoard(
-        board._id,
+        currentUpdateBoard._id,
         board.name,
         board.description
       );
+
       setRefresh((currentRefresh) => !currentRefresh);
-      setModalShowing(false);
+      setModalShowing(() => false);
+      setCurrentUpdateBoard(null);
     } catch (err) {
       console.log(err);
     }
@@ -90,8 +97,6 @@ const Boards = () => {
     []
   );
 
-  const [currentUpdateBoard, setCurrentUpdateBoard] = useState(null);
-
   const handleUpdateClick = (board) => {
     setCurrentUpdateBoard(() => board);
     setModalShowing(() => true);
@@ -115,6 +120,7 @@ const Boards = () => {
                 name={board.name}
                 id={board._id}
                 shortId={board.shortId}
+                isModalShowing={isModalShowing}
                 handleUpdateClick={() => handleUpdateClick(board)}
                 handleDeleteClick={handleDeleteClick}
               />

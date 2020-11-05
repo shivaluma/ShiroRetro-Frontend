@@ -1,6 +1,7 @@
 import { Avatar, Popover } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import Logo from '../../Logo';
 import UserMenu from './Header/UserMenu';
 
@@ -19,8 +20,9 @@ const Header = ({ leftChild, rightChild }) => {
       <div className="flex items-center">
         {rightChild && rightChild()}
         <div className="pl-6 border-l border-gray-200">
-          <Popover placement="bottomRight" content={UserMenu} trigger="click">
+          <Popover placement="bottomRight" content={UserMenu} trigger="focus">
             <Avatar
+              tabIndex={-1}
               size={40}
               src="https://cdn.dribbble.com/users/4557429/avatars/small/open-uri20191213-19471-145569c?1576296398"
             />
