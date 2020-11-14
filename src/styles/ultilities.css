@@ -172,8 +172,18 @@ button::focus {
     flex-direction: column;
     margin-top: 8px;
     min-height: 0;
+   
     position: relative;
 }
+
+.placeholder {
+    position: absolute;
+    background-color: white;
+    border-radius: 3px;
+    border: dashed 1px blue;
+    background-color: white;
+}
+  
 
 .scrollable-area {
     display: flex;
@@ -181,7 +191,8 @@ button::focus {
     flex-direction: column;
     margin: -2px -12px 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: unset;
+    height: calc(100vh - 200px);
     max-height: calc(100vh - 200px);
     padding: 0 10px;
 }

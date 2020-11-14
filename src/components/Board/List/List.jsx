@@ -2,14 +2,16 @@ import clsx from 'clsx';
 import React, { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { FiPlus } from 'react-icons/fi';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import CardService from '../../../services/CardService';
 import Card from './Card/Card';
 
-const List = ({ data, idBoard }) => {
+const List = ({ data, idBoard, listIndex, placeholderProps }) => {
   const [editMode, setEditMode] = useState(false);
   const [cardEditMode, setCardEditMode] = useState(true);
   const [list, setList] = useState(() => data);
   const [tmpCard, setTmpCard] = useState(null);
+
   const handleChangeListName = (event) => {
     setList((prevList) => ({
       ...prevList,
@@ -34,7 +36,6 @@ const List = ({ data, idBoard }) => {
   };
 
   const handleCardNameChange = (event) => {
-    console.log('Tmp card change');
     setTmpCard({ ...tmpCard, name: event.currentTarget.textContent });
   };
 
@@ -62,7 +63,6 @@ const List = ({ data, idBoard }) => {
   };
 
   const handleCardDelete = async (id) => {
-    console.log(`card delete${id}`);
     try {
       await CardService.removeCard(id);
       const newCards = list.cards.filter((card) => card._id !== id);
@@ -104,32 +104,50 @@ const List = ({ data, idBoard }) => {
             <FiPlus className="text-lg" />
           </button>
         </div>
-        <div className="board-column">
-          <div className="scrollable-container">
-            <div className="scrollable-area">
-              <div className={clsx('flex flex-col', 'card-list')}>
-                {tmpCard && (
-                  <Card
-                    isNew
-                    data={tmpCard}
-                    editMode={cardEditMode}
-                    onBlur={handleCardOnBlur}
-                    handleNameChange={handleCardNameChange}
-                  />
-                )}
-                {list.cards.map((card) => (
-                  <Card
-                    isNew={false}
-                    key={card._id}
-                    data={card}
-                    handleCardDelete={handleCardDelete}
-                    handleCardUpdate={handleCardUpdate}
-                  />
-                ))}
+        <Droppable droppableId={data._id}>
+          {(provided, snapshot) => (
+            <div className="board-column">
+              <div className="scrollable-container">
+                <div className="scrollable-area">
+                  <div
+                    ref={provided.innerRef}
+                    className={clsx('flex flex-col', 'card-list')}
+                  >
+                    {tmpCard && (
+                      <Card
+                        isNew
+                        data={tmpCard}
+                        editMode={cardEditMode}
+                        onBlur={handleCardOnBlur}
+                        handleNameChange={handleCardNameChange}
+                      />
+                    )}
+                    {list.cards.map((card, index) => (
+                      <Draggable
+                        key={card._id}
+                        draggableId={card._id}
+                        index={index}
+                      >
+                        {(providedChild, snapshot) => (
+                          <Card
+                            innerRef={providedChild.innerRef}
+                            {...providedChild.draggableProps}
+                            {...providedChild.dragHandleProps}
+                            isNew={false}
+                            data={card}
+                            handleCardDelete={handleCardDelete}
+                            handleCardUpdate={handleCardUpdate}
+                          />
+                        )}
+                      </Draggable>
+                    ))}
+                  </div>
+                </div>
               </div>
+              {provided.placeholder}
             </div>
-          </div>
-        </div>
+          )}
+        </Droppable>
       </div>
     </div>
   ) : (

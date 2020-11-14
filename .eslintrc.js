@@ -31,5 +31,6 @@ module.exports = {
     'react/prop-types': 'off',
     'no-underscore-dangle': 'off',
     'consistent-return': 'off',
+    'react/jsx-props-no-spreading': 'off'
   },
 };
