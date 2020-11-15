@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import useLayout from '../../hooks/useLayout';
 import List from '../../components/Board/List/List';
 import { BoardService } from '../../services';
+import CardService from '../../services/CardService';
 
 const Board = ({ match }) => {
   const [loading, setLoading] = useState(true);
@@ -77,6 +78,8 @@ const Board = ({ match }) => {
 
     sourceCards.splice(sourceCardIndex, 1);
     destCards.splice(destCardIndex, 0, card);
+
+    CardService.updateCard(card);
   };
 
   // const getDraggedDom = (draggableId) => {
