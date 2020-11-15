@@ -6,7 +6,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import CardService from '../../../services/CardService';
 import Card from './Card/Card';
 
-const List = ({ data, idBoard, listIndex, placeholderProps }) => {
+const List = ({ data, idBoard }) => {
   const [editMode, setEditMode] = useState(false);
   const [cardEditMode, setCardEditMode] = useState(true);
   const [list, setList] = useState(() => data);
@@ -135,16 +135,17 @@ const List = ({ data, idBoard, listIndex, placeholderProps }) => {
                             {...providedChild.dragHandleProps}
                             isNew={false}
                             data={card}
+                            pos={card.pos}
                             handleCardDelete={handleCardDelete}
                             handleCardUpdate={handleCardUpdate}
                           />
                         )}
                       </Draggable>
                     ))}
+                    {provided.placeholder}
                   </div>
                 </div>
               </div>
-              {provided.placeholder}
             </div>
           )}
         </Droppable>

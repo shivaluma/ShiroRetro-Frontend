@@ -178,10 +178,9 @@ button::focus {
 
 .placeholder {
     position: absolute;
-    background-color: white;
+    background-color: #9ca6af;
     border-radius: 3px;
-    border: dashed 1px blue;
-    background-color: white;
+    
 }
   
 

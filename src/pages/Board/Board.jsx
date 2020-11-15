@@ -63,22 +63,20 @@ const Board = ({ match }) => {
 
     const card = { ...sourceCards[sourceCardIndex] };
 
+    card.idList = destList._id;
+
     if (destCardIndex === 0) {
       if (destCards.length === 0) card.pos = 65535;
-      else card.pos = destCards[0].pos / 2;
+      else card.pos = destCards[0].pos + 65535;
     } else if (destCardIndex === destCards.length) {
-      card.pos = destCards[destCards.length - 1].pos + 65535;
+      card.pos = destCards[destCards.length - 1].pos / 2;
     } else {
       card.pos =
-        (destCards[destCardIndex].pos + destCards[destCardIndex + 1].pos) / 2;
+        (destCards[destCardIndex - 1].pos + destCards[destCardIndex].pos) / 2;
     }
-
-    console.log(card.pos);
 
     sourceCards.splice(sourceCardIndex, 1);
     destCards.splice(destCardIndex, 0, card);
-
-    setBoard({ ...board });
   };
 
   // const getDraggedDom = (draggableId) => {

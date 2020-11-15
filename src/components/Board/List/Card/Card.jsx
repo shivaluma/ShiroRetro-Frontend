@@ -26,6 +26,15 @@ const Card = ({
 
   const [currentCard, setCurrentCard] = useState(() => data);
 
+  const isFirstRun = React.createRef(true);
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    setCurrentCard((card) => ({ ...card }));
+  }, [data]);
+
   const onDeleteCard = () => handleCardDelete(data._id);
   const onEditCard = () => {
     setOldCardEditMode(true);
