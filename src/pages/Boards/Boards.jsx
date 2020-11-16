@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 import useLayout from '../../hooks/useLayout';
 import { BoardService } from '../../services';
 
-const Boards = () => {
+const Boards = ({ history }) => {
   const [isModalShowing, setModalShowing] = useState(false);
   const [isInitLoading, setInitLoading] = useState(true);
   const [isLoadingAddNewBoard, setLoadingAddNewBoard] = useState(false);
@@ -38,8 +38,9 @@ const Boards = () => {
 
     try {
       const data = await BoardService.addBoard(name, description);
-      setRefresh((currentRefresh) => !currentRefresh);
-      reset();
+
+      history.push(`/b/${data.data.data._id}`);
+      return;
     } catch (err) {
       console.log(err);
     }
