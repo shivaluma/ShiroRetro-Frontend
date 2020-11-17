@@ -24,7 +24,7 @@ const Login = ({ isLogin = true, location }) => {
   const facebookLoginHandler = async (response) => {
     try {
       if (response.id && response.accessToken) {
-        dispatch(
+        await dispatch(
           signinFacebook({
             id: response.id,
             fbAccessToken: response.accessToken,
@@ -38,7 +38,7 @@ const Login = ({ isLogin = true, location }) => {
   const googleLoginHandler = async (response) => {
     try {
       if (response.accessToken) {
-        dispatch(
+        await dispatch(
           signinGoogle({
             ggAccessToken: response.accessToken,
           })

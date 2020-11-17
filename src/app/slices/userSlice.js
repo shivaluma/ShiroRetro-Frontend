@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import API from '../../api';
+import { changeInit } from './initSlice';
 
 const userSlice = createSlice({
   name: 'user',
@@ -52,8 +53,8 @@ export const signinGoogle = ({ ggAccessToken }) => async (dispatch) => {
   try {
     const res = await API.post('auth/signin-google', { ggAccessToken });
     if (res?.data?.data) {
-      localStorage.setItem('whatisthis', res.data.data.accessToken);
       await dispatch(setUser(res.data.data.user));
+      localStorage.setItem('whatisthis', res.data.data.accessToken);
     }
   } catch (e) {
     return e.response;
@@ -82,6 +83,7 @@ export const initUserLoading = () => async (dispatch) => {
 
     if (!res.data.isError) {
       dispatch(setUser(res.data.data));
+      dispatch(changeInit());
     }
 
     return res;
