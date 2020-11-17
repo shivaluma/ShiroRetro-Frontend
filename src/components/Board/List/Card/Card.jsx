@@ -18,7 +18,7 @@ const Card = ({
   const ref = useRef(null);
   const nameRef = useRef(data.name);
   useEffect(() => {
-    if (editMode) {
+    if (editMode || isNew) {
       ref.current.focus();
     }
   }, [editMode]);
