@@ -19,7 +19,7 @@ const App = () => {
   const isInit = useSelector((state) => state.init);
   useEffect(() => {
     (async function init() {
-      dispatch(initUserLoading());
+      await dispatch(initUserLoading());
     })();
   }, [dispatch]);
 

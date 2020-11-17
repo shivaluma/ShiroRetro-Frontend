@@ -83,12 +83,13 @@ export const initUserLoading = () => async (dispatch) => {
 
     if (!res.data.isError) {
       dispatch(setUser(res.data.data));
-      dispatch(changeInit());
     }
 
     return res;
   } catch (e) {
     return e.response;
+  } finally {
+    dispatch(changeInit());
   }
 };
 
