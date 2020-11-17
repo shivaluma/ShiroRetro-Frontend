@@ -18,7 +18,7 @@ const Card = ({
   const ref = useRef(null);
   const nameRef = useRef(data.name);
   useEffect(() => {
-    if (editMode || isNew) {
+    if (editMode) {
       ref.current.focus();
     }
   }, [editMode]);
@@ -71,53 +71,55 @@ const Card = ({
     : (event) => handleCardDataChange('name', event.currentTarget.textContent);
 
   return (
-    <div
-      tabIndex={-1}
-      contentEditable={editMode || oldCardEditMode}
-      onBlur={!isNew ? onOldCardBlur : onBlur}
-      ref={innerRef}
-      {...rest}
-      onInput={onCardInput}
-      suppressContentEditableWarning
-      placeholder="Write a task name..."
-      className={clsx(
-        'px-5 py-4 pb-16 mb-3 bg-white border group rounded-lg focus:outline-none card-shadow hover:shadow-lg relative ',
-        editMode && 'border border-gray-500 cursor-text',
-        oldCardEditMode && 'border border-gray-500 cursor-text',
-        !editMode && !oldCardEditMode && 'cursor-move'
-      )}
-    >
-      {!isNew && !oldCardEditMode && (
-        <Popover
-          placement="bottomLeft"
-          content={() => (
-            <div className="flex flex-col w-48 overflow-hidden group">
-              <button
-                type="button"
-                className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
-                onClick={onEditCard}
-              >
-                Edit task name
-              </button>
+    <div ref={innerRef}>
+      <div
+        tabIndex={-1}
+        contentEditable={editMode || oldCardEditMode}
+        onBlur={!isNew ? onOldCardBlur : onBlur}
+        ref={ref}
+        {...rest}
+        onInput={onCardInput}
+        suppressContentEditableWarning
+        placeholder="Write a task name..."
+        className={clsx(
+          'px-5 py-4 pb-16 mb-3 bg-white border group rounded-lg focus:outline-none card-shadow hover:shadow-lg relative ',
+          editMode && 'border border-gray-500 cursor-text',
+          oldCardEditMode && 'border border-gray-500 cursor-text',
+          !editMode && !oldCardEditMode && 'cursor-move'
+        )}
+      >
+        {!isNew && !oldCardEditMode && (
+          <Popover
+            placement="bottomLeft"
+            content={() => (
+              <div className="flex flex-col w-48 overflow-hidden group">
+                <button
+                  type="button"
+                  className="px-4 py-2 text-left cursor-pointer hover:bg-gray-300 focus:outline-none"
+                  onClick={onEditCard}
+                >
+                  Edit task name
+                </button>
 
-              <button
-                type="button"
-                className="px-4 py-2 text-left text-red-600 cursor-pointer hover:bg-gray-300 focus:outline-none"
-                onClick={onDeleteCard}
-              >
-                Delete task
-              </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 text-left text-red-600 cursor-pointer hover:bg-gray-300 focus:outline-none"
+                  onClick={onDeleteCard}
+                >
+                  Delete task
+                </button>
+              </div>
+            )}
+            trigger="click"
+          >
+            <div className="absolute hidden p-2 text-xl bg-white border border-gray-300 rounded-md shadow-sm group-hover:block group-hover:opacity-100 menu-hover-card">
+              <FiMoreHorizontal className="text-black" />
             </div>
-          )}
-          trigger="click"
-        >
-          <div className="absolute hidden p-2 text-xl bg-white border border-gray-300 rounded-md shadow-sm group-hover:block group-hover:opacity-100 menu-hover-card">
-            <FiMoreHorizontal className="text-black" />
-          </div>
-        </Popover>
-      )}
+          </Popover>
+        )}
 
-      {nameRef.current}
+        {nameRef.current}
+      </div>
     </div>
   );
 };
