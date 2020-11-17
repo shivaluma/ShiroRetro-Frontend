@@ -72,8 +72,7 @@ const List = ({ list, idBoard, setList }) => {
 
   const handleCardUpdate = async (card) => {
     try {
-      const response = await CardService.updateCard(card);
-      console.log(response);
+      await CardService.updateCard(card);
     } catch (err) {
       console.log(err);
     }

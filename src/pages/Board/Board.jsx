@@ -120,11 +120,9 @@ const Board = ({ match }) => {
   // };
 
   const setList = (idList, newList) => {
-    console.log(idList);
-    console.log(board.lists);
     if (board) {
       const index = board.lists.findIndex((list) => list._id === idList);
-      console.log(index);
+
       const newLists = [...board.lists];
       newLists[index] = newList;
       setBoard({ ...board, lists: newLists });

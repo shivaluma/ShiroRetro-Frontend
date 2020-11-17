@@ -52,7 +52,6 @@ export const signinGoogle = ({ ggAccessToken }) => async (dispatch) => {
   try {
     const res = await API.post('auth/signin-google', { ggAccessToken });
     if (res?.data?.data) {
-      console.log('has data, dispatch ');
       localStorage.setItem('whatisthis', res.data.data.accessToken);
       await dispatch(setUser(res.data.data.user));
     }
