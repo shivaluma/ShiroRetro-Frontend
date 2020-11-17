@@ -15,13 +15,13 @@ const Card = ({
   handleCardUpdate,
   ...rest
 }) => {
-  // const ref = useRef(null);
+  const ref = useRef(null);
   const nameRef = useRef(data.name);
-  // useEffect(() => {
-  //   if (editMode) {
-  //     ref.current.focus();
-  //   }
-  // }, [editMode]);
+  useEffect(() => {
+    if (editMode) {
+      ref.current.focus();
+    }
+  }, [editMode]);
   const [oldCardEditMode, setOldCardEditMode] = useState(false);
 
   const [currentCard, setCurrentCard] = useState(() => data);
