@@ -15,6 +15,7 @@ const Login = ({ isLogin = true, location }) => {
   const [isLoginMode, setLoginMode] = useState(() => isLogin);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [error, setError] = useState(null);
   const onLoginSuccess = useCallback(() => {
     const params = new URLSearchParams(location.search);
     const next = params.get('next');
@@ -24,28 +25,34 @@ const Login = ({ isLogin = true, location }) => {
   const facebookLoginHandler = async (response) => {
     try {
       if (response.id && response.accessToken) {
-        await dispatch(
+        const err = await dispatch(
           signinFacebook({
             id: response.id,
             fbAccessToken: response.accessToken,
           })
         );
-        onLoginSuccess();
+        if (!err) onLoginSuccess();
+        else throw err;
       }
-    } catch (err) {}
+    } catch (err) {
+      setError(err.data.message);
+    }
   };
 
   const googleLoginHandler = async (response) => {
     try {
       if (response.accessToken) {
-        await dispatch(
+        const err = await dispatch(
           signinGoogle({
             ggAccessToken: response.accessToken,
           })
         );
-        onLoginSuccess();
+        if (!err) onLoginSuccess();
+        else throw err;
       }
-    } catch (err) {}
+    } catch (err) {
+      setError(err.data.message);
+    }
   };
 
   const handleChangeMode = () => setLoginMode((prev) => !prev);
@@ -99,6 +106,12 @@ const Login = ({ isLogin = true, location }) => {
                   )}
                 />
               </div>
+
+              {error && (
+                <span className="mt-4 text-xs text-red-600 capitalize text-medium ">
+                  {error}
+                </span>
+              )}
 
               <div className="flex items-center justify-center my-6">
                 <div className="flex-1 border-t border-gray-300" />

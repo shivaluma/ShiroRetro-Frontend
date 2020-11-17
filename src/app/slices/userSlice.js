@@ -44,6 +44,8 @@ export const signinFacebook = ({ id, fbAccessToken }) => async (dispatch) => {
       localStorage.setItem('whatisthis', res.data.data.accessToken);
       dispatch(setUser(res.data.data.user));
     }
+
+    return null;
   } catch (e) {
     return e.response;
   }
@@ -56,6 +58,7 @@ export const signinGoogle = ({ ggAccessToken }) => async (dispatch) => {
       await dispatch(setUser(res.data.data.user));
       localStorage.setItem('whatisthis', res.data.data.accessToken);
     }
+    return null;
   } catch (e) {
     return e.response;
   }
