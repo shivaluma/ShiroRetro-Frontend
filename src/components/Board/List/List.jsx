@@ -1,22 +1,22 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContentLoader from 'react-content-loader';
 import { FiPlus } from 'react-icons/fi';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import CardService from '../../../services/CardService';
 import Card from './Card/Card';
 
-const List = ({ data, idBoard }) => {
+const List = ({ list, idBoard, setList }) => {
   const [editMode, setEditMode] = useState(false);
   const [cardEditMode, setCardEditMode] = useState(true);
-  const [list, setList] = useState(() => data);
+
   const [tmpCard, setTmpCard] = useState(null);
 
   const handleChangeListName = (event) => {
-    setList((prevList) => ({
-      ...prevList,
+    setList({
+      ...list,
       name: event.target.value,
-    }));
+    });
   };
   const handleToggleEditMode = () => {
     if (editMode === true) return;
@@ -79,7 +79,7 @@ const List = ({ data, idBoard }) => {
     }
   };
 
-  return data ? (
+  return list ? (
     <div className="h-full">
       <div className="max-h-full pt-3 overflow-y-auto border border-transparent rounded-md list-col">
         <div className="flex items-center w-full cursor-pointer list-header">
@@ -104,7 +104,7 @@ const List = ({ data, idBoard }) => {
             <FiPlus className="text-lg" />
           </button>
         </div>
-        <Droppable droppableId={data._id}>
+        <Droppable droppableId={list._id}>
           {(provided, snapshot) => (
             <div className="board-column">
               <div className="scrollable-container">

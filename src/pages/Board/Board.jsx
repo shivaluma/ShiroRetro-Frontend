@@ -119,6 +119,18 @@ const Board = ({ match }) => {
   //   });
   // };
 
+  const setList = (idList, newList) => {
+    console.log(idList);
+    console.log(board.lists);
+    if (board) {
+      const index = board.lists.findIndex((list) => list._id === idList);
+      console.log(index);
+      const newLists = [...board.lists];
+      newLists[index] = newList;
+      setBoard({ ...board, lists: newLists });
+    }
+  };
+
   return (
     <Layout>
       <div className="flex flex-col flex-1 min-h-0 bg-background-1">
@@ -134,7 +146,8 @@ const Board = ({ match }) => {
               {board.lists.map((list, index) => (
                 <List
                   key={list._id}
-                  data={list}
+                  list={list}
+                  setList={(newList) => setList(list._id, newList)}
                   listIndex={index}
                   idBoard={board._id}
                 />
